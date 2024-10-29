@@ -39,9 +39,9 @@
     </style>
 </head>
 <body>
-    <header class="text-center mb-4">
+    {{-- <header class="text-center mb-4">
         <h4 class="font-weight-normal"><a href="/" class="text-white">{{config('app.name')}}</a></h4>
-        <form action="/login/{id}" method="POST" class="d-flex justify-content-center mt-2">
+        <form action="/login" method="POST" class="d-flex justify-content-center mt-2">
             @csrf
             <div class="form-group mr-2">
                 <input name="loginusername" class="form-control form-control-sm input-dark" type="text" placeholder="Username" autocomplete="off" />
@@ -57,21 +57,8 @@
             </div>
             <button class="btn btn-primary btn-sm">Sign In</button>
         </form>
-    </header>
+    </header> --}}
 
-    @if(session()->has('success'))
-    <div class='container container--narrow'>
-        <div class='alert alert-success text-center'>
-        {{session('success')}}
-        </div>
-    </div>
-    @elseif(session()->has('error'))
-        <div class='container container--narrow'>
-        <div class='alert alert-danger text-center'>
-            {{session('error')}}
-        </div>
-        </div>
-    @endif
     {{ $slot }}
 
     <footer class="border-top text-center small text-muted py-3">
