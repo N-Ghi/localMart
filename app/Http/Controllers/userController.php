@@ -49,6 +49,7 @@ class userController extends Controller
         return redirect('/')->with('success', 'Login to start your adventures');
     }
 
+    
     public function login(Request $request){
         $incomingFields = $request->validate([
             'loginusername'=> 'required',
