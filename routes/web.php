@@ -18,6 +18,9 @@ Route::post('/register/traveller', [userController::class, 'storeTraveller'])->n
 Route::post('/login/{id}', [userController::class, 'login'])->name('login');
 
 // Dashboard Routes
-Route::get('/providor/dashboard', [providerController::class, 'index'])->name('providorDashboard')->middleware('auth');
+Route::get('/provider/dashboard', [providerController::class, 'index'])->name('providorDashboard')->middleware('auth');
 Route::get('/traveller/dashboard', [travellerController::class, 'index'])->name('travellerDashboard')->middleware('auth');
 Route::get('/admin/dashboard', [adminController::class, 'index'])->name('adminDashboard')->middleware('auth');
+
+// Logout Route
+Route::get('/logout', [userController::class, 'logout'])->name('logout')->middleware('auth');

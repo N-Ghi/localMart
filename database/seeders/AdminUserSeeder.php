@@ -14,7 +14,7 @@ public function run()
 {
     $adminEmail = env('ADMIN_EMAIL', 'default@example.com');
     $adminName = env('ADMIN_USERNAME', 'Default Admin');
-    $adminPassword = env('bcrypt(ADMIN_PASSWORD)', bcrypt('defaultpassword'));
+    $adminPassword = bcrypt(env('ADMIN_PASSWORD', 'defaultpassword'));
 
     $admin = \App\Models\User::firstOrCreate(
         ['email' => $adminEmail],
