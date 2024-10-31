@@ -2,63 +2,87 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class adminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('admin.dashboard');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function createUser()
     {
-        //
+        $role = Role::all();
+        return view('Admin.createUser', ['role'=>$role]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function storeUser(Request $request)
+{
+    $userData = $request->validate([
+        'name' => ['required', 'string', 'min:3', 'max:20'],
+        'email' => ['required', 'email', Rule::unique('users', 'email')],
+        'password' => ['required', 'string', 'min:8'],
+        'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])],
+    ]);
+
+    $userData['password'] = bcrypt($userData['password']);
+    
+    $user = User::create($userData);
+
+    $user->assignRole($userData['role']);
+
+    return redirect()->route('adminDashboard')->with('success', 'User created successfully');
+}
+
+    public function showUsers()
     {
-        //
+        $users = User::all();
+        return view('Admin.viewUsers', ['users' => $users]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function showUser($user)
     {
-        //
+
+        $user = User::find($user);
+        return view('Admin.viewUser', ['user' => $user]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editUser(User $user)
     {
-        //
+        return view('Admin.editUser', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateUser(Request $request, User $user)
     {
-        //
+        $data = $request->validate([
+            'name'=> ['required', 'min:3', 'max:20'],
+            'email'=> ['required', 'email', Rule::unique('users', 'email')],
+            'password'=> ['required', 'min:8'],
+            'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])]
+        ]);
+        $data['password'] = bcrypt($data['password']);
+        $user->update($data);
+        $user->syncRoles([$data->role]);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyUser($userId)
     {
-        //
+        $user = User::findOrFail($userId);
+        $user->delete();
+        return redirect()->route('showUsers')->with('success', 'User deleted successfully');
     }
 }

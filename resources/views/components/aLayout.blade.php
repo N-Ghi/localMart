@@ -25,7 +25,7 @@
                                                     
             <div class="d-flex align-items-center">
                 <h4 class="my-0 mr-md-auto font-weight-normal font-weight-normal">
-                    <a href="{{ route('providorDashboard') }}" class="text-white">{{config('app.name')}}</a>
+                    <a href="{{ route('adminDashboard') }}" class="text-white">{{config('app.name')}}</a>
                 </h4>
             
                 <!-- Collapsible Service Links -->
@@ -35,29 +35,49 @@
                 
                 <div class="collapse" id="serviceLinks">
                     <div class="d-flex flex-wrap mt-3">
-                    <a class="btn btn-sm btn-primary mx-2" href="#">Create Service</a>
-                    <a class="btn btn-sm btn-info mx-2" href="#">View Services</a>
-                    <a class="btn btn-sm btn-info mx-2" href="#">Update Service</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="#">Create Service</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="#">View Services</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="#">Update Service</a>
+                    </div>
                 </div>
-            </div>
         
-            <!-- Collapsible Profile Links -->
-            <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#profileLinks" aria-expanded="false" aria-controls="profileLinks">
-                Profile Links
-            </button>
-            <div class="collapse" id="profileLinks">
-                <div class="d-flex flex-wrap mt-3">
-                <a class="btn btn-sm btn-primary mx-2" href="#">Create Profile</a>
-                <a class="btn btn-sm btn-info mx-2" href="#">View Profile</a>
-                <a class="btn btn-sm btn-info mx-2" href="#">Update Profile</a>
-            </div>
-
-            
-        </div>
-        <a href="{{route('logout')}}" class="btn btn-danger btn-sm mx-2">Logout</a>
+                <!-- Collapsible Profile Links -->
+                <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#profileLinks" aria-expanded="false" aria-controls="profileLinks">
+                    Profile Links
+                </button>
+                <div class="collapse" id="profileLinks">
+                    <div class="d-flex flex-wrap mt-3">
+                        <a class="btn btn-sm btn-primary mx-2" href="#">Create Profile</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="#">View Profile</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="#">Update Profile</a>
+                    </div>
+                </div>
+                <!-- Collapsible User Links -->
+                <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#userLinks" aria-expanded="false" aria-controls="userLinks">
+                    User Links
+                </button>
+                <div class="collapse" id="userLinks">
+                    <div class="d-flex flex-wrap mt-3">
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('createUser')}}">Create User</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('showUsers')}}">View Users</a>
+                    </div>
+                </div>
+            <a href="{{route('logout')}}" class="btn btn-danger btn-sm mx-2">Logout</a>
             </div>
     </header>
-
+    @if(session()->has('success'))
+        <div class='container container--narrow'>
+            <div class='alert alert-success text-center'>
+                {{session('success')}}
+            </div>
+        </div>
+    @elseif(session()->has('error'))
+        <div class='container container--narrow'>
+            <div class='alert alert-danger text-center'>
+                {{session('error')}}
+            </div>
+        </div>
+    @endif
     {{$slot}}
 
     <footer class="border-top text-center small text-muted py-3">

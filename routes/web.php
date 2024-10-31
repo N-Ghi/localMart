@@ -24,3 +24,14 @@ Route::get('/admin/dashboard', [adminController::class, 'index'])->name('adminDa
 
 // Logout Route
 Route::get('/logout', [userController::class, 'logout'])->name('logout')->middleware('auth');
+
+//Admin Routes
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], function () {
+    Route::get('/users/create', [AdminController::class, 'createUser'])->middleware('auth')->name('createUser');
+    Route::post('/users/create', [AdminController::class, 'storeUser'])->middleware('auth')->name('storeUser');
+    Route::get('/users/view', [AdminController::class, 'showUsers'])->name('showUsers');
+    Route::get('/users/view/{id}', [AdminController::class, 'showUser'])->name('showUser');
+    Route::delete('/users/delete/{id}', [AdminController::class, 'destroyUser'])->name('destroyUser');
+    Route::get('/users/edit/{id}', [AdminController::class, 'editUser'])->name('editUser');
+    Route::put('/users/edit/{id}', [AdminController::class, 'updateUser'])->name('updateUser');
+});

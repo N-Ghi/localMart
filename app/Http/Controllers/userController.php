@@ -25,9 +25,9 @@ class userController extends Controller
     public function storeProvider(Request $request)
     {
         $incoming = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'name'=> ['required', 'min:3', 'max:20'],
+            'email'=> ['required', 'email', Rule::unique('users', 'email')],
+            'password'=> ['required', 'min:8', 'confirmed']
         ]);
         $incoming['password'] = bcrypt($incoming['password']);
 
@@ -38,9 +38,9 @@ class userController extends Controller
     public function storeTraveller(Request $request)
     {
         $incoming = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'name'=> ['required', 'min:3', 'max:20'],
+            'email'=> ['required', 'email', Rule::unique('users', 'email')],
+            'password'=> ['required', 'min:8', 'confirmed']
         ]);
         $incoming['password'] = bcrypt($incoming['password']);
 
