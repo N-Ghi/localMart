@@ -21,22 +21,32 @@ class adminController extends Controller
     }
 
     public function storeUser(Request $request)
-{
-    $userData = $request->validate([
-        'name' => ['required', 'string', 'min:3', 'max:20'],
-        'email' => ['required', 'email', Rule::unique('users', 'email')],
-        'password' => ['required', 'string', 'min:8'],
-        'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])],
-    ]);
+    {
+        $userData = $request->validate([
+            'name' => ['required', 'string', 'min:3', 'max:20'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'string', 'min:8'],
+            'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])],
+        ]);
 
-    $userData['password'] = bcrypt($userData['password']);
-    
-    $user = User::create($userData);
+        $userData['password'] = bcrypt($userData['password']);
+            
+        $user = User::create([
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'password' => $userData['password'],
+        ]);
 
-    $user->assignRole($userData['role']);
+        $role = Role::where('name', $userData['role'])->first();
 
-    return redirect()->route('adminDashboard')->with('success', 'User created successfully');
-}
+        if (!$role) {
+            return redirect()->back()->with('error', 'The specified role does not exist.');
+        }
+        
+        $user->assignRole($role);
+
+        return redirect()->route('adminDashboard')->with('success', 'User created successfully');
+    }
 
     public function showUsers()
     {
