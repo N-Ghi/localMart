@@ -32,6 +32,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], func
     Route::get('/users/view', [AdminController::class, 'showUsers'])->name('showUsers');
     Route::get('/users/view/{id}', [AdminController::class, 'showUser'])->name('showUser');
     Route::delete('/users/delete/{id}', [AdminController::class, 'destroyUser'])->name('destroyUser');
-    Route::get('/users/edit/{id}', [AdminController::class, 'editUser'])->name('editUser');
-    Route::put('/users/edit/{id}', [AdminController::class, 'updateUser'])->name('updateUser');
+    Route::get('/users/edit/{user}', [AdminController::class, 'editUser'])->name('editUser');
+    Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
 });

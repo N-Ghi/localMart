@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 
 class adminController extends Controller
 {
@@ -22,27 +23,28 @@ class adminController extends Controller
 
     public function storeUser(Request $request)
     {
+
         $userData = $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:20'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8'],
-            'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])],
+            'role' => [
+                'required',
+                Rule::in(['admin', 'provider', 'traveller']),
+                'exists:roles,name'
+                ],
+            ], [
+                'role.in' => 'The selected role is invalid.',
+                'role.exists' => 'The specified role does not exist in the system.'
         ]);
+        Log::info('Validation Complete', $request->all());
 
         $userData['password'] = bcrypt($userData['password']);
-            
-        $user = User::create([
-            'name' => $userData['name'],
-            'email' => $userData['email'],
-            'password' => $userData['password'],
-        ]);
+
+        
+        $user = User::create($userData);
 
         $role = Role::where('name', $userData['role'])->first();
-
-        if (!$role) {
-            return redirect()->back()->with('error', 'The specified role does not exist.');
-        }
-        
         $user->assignRole($role);
 
         return redirect()->route('adminDashboard')->with('success', 'User created successfully');
@@ -61,34 +63,30 @@ class adminController extends Controller
         return view('Admin.viewUser', ['user' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function editUser(User $user)
     {
-        return view('Admin.editUser', ['user' => $user]);
+        $role = Role::all();
+        return view('Admin.editUser', ['user' => $user, 'role'=>$role]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function updateUser(Request $request, User $user)
     {
         $data = $request->validate([
-            'name'=> ['required', 'min:3', 'max:20'],
-            'email'=> ['required', 'email', Rule::unique('users', 'email')],
-            'password'=> ['required', 'min:8'],
+            'name' => ['required', 'min:3', 'max:20'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
+            'password' => ['min:8'],
             'role' => ['required', Rule::in(['admin', 'provider', 'traveller'])]
         ]);
+
         $data['password'] = bcrypt($data['password']);
+
         $user->update($data);
-        $user->syncRoles([$data->role]);
-        return redirect()->back();
+
+        $user->syncRoles([$data['role']]);
+
+        return redirect()->route('showUsers')->with('success', 'User updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroyUser($userId)
     {
         $user = User::findOrFail($userId);
