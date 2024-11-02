@@ -35,9 +35,8 @@
                 
                 <div class="collapse" id="serviceLinks">
                     <div class="d-flex flex-wrap mt-3">
-                        <a class="btn btn-sm btn-primary mx-2" href="#">Create Service</a>
-                        <a class="btn btn-sm btn-primary mx-2" href="#">View Services</a>
-                        <a class="btn btn-sm btn-primary mx-2" href="#">Update Service</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('createService')}}">Create Service</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('showServices')}}">View Services</a>
                     </div>
                 </div>
         

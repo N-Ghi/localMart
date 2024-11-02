@@ -27,6 +27,8 @@ Route::get('/logout', [userController::class, 'logout'])->name('logout')->middle
 
 //Admin Routes
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], function () {
+    
+    //User Routes
     Route::get('/users/create', [AdminController::class, 'createUser'])->middleware('auth')->name('createUser');
     Route::post('/users/create', [AdminController::class, 'storeUser'])->middleware('auth')->name('storeUser');
     Route::get('/users/view', [AdminController::class, 'showUsers'])->name('showUsers');
@@ -35,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], func
     Route::get('/users/edit/{user}', [AdminController::class, 'editUser'])->name('editUser');
     Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
 
+    //Profile Routes
     Route::get('/profile/view', [AdminController::class, 'showProfiles'])->name('showProfiles');
     Route::get('/profile/view/{profile}', [AdminController::class, 'showProfile'])->name('showProfile');
     Route::get('/profile/create', [AdminController::class, 'createProfile'])->name('createProfile');
@@ -43,8 +46,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], func
     Route::put('/profile/edit/{profile}', [AdminController::class, 'updateProfile'])->name('updateProfile');
     Route::delete('/profile/delete/{profile}', [AdminController::class, 'destroyProfile'])->name('destroyProfile');
 
-    Route::get('/profile/view', [AdminController::class, 'showServices'])->name('showServices');
-    Route::get('/profile/view/{service}', [AdminController::class, 'showService'])->name('showService');
-    Route::get('/profile/create', [AdminController::class, 'createService'])->name('createService');
-    Route::post('/profile/create', [AdminController::class, 'storeService'])->name('storeService');
+    //Service Routes
+    Route::get('/service/view', [AdminController::class, 'showServices'])->name('showServices');
+    Route::get('/service/view/{service}', [AdminController::class, 'showService'])->name('showService');
+    Route::get('/service/create', [AdminController::class, 'createService'])->name('createService');
+    Route::post('/service/create', [AdminController::class, 'storeService'])->name('storeService');
+    Route::get('/service/edit/{service}', [AdminController::class, 'editService'])->name('editService');
+    Route::put('/service/edit/{service}', [AdminController::class, 'updateService'])->name('updateService');
+    Route::delete('/service/delete/{service}', [AdminController::class, 'destroyService'])->name('destroyService');
+
 });
