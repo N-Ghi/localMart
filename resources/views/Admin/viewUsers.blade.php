@@ -15,8 +15,4 @@
             </div>
         @endforeach
     </div>
-    
-    <footer class="border-top text-center small text-muted py-3 mt-4">
-        <p class="m-0">&copy; {{date('Y')}} <a href="/" class="text-muted">{{config('app.name')}}</a>. All rights reserved.</p>
-    </footer> 
 </x-aLayout>

@@ -47,9 +47,8 @@
                 </button>
                 <div class="collapse" id="profileLinks">
                     <div class="d-flex flex-wrap mt-3">
-                        <a class="btn btn-sm btn-primary mx-2" href="#">Create Profile</a>
-                        <a class="btn btn-sm btn-primary mx-2" href="#">View Profile</a>
-                        <a class="btn btn-sm btn-primary mx-2" href="#">Update Profile</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('createProfile')}}">Create Profile</a>
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('showProfiles')}}">View Profiles</a>
                     </div>
                 </div>
                 <!-- Collapsible User Links -->
