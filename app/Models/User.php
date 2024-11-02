@@ -53,6 +53,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class, 'owner_id');
     }
+    public function owns()
+    {
+        return $this->hasMany(Service::class, 'owner_id');
+    }
+    
 
 
 }

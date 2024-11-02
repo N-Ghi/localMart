@@ -15,7 +15,7 @@ class adminController extends Controller
     {
         return view('admin.dashboard');
     }
-
+    // User Function
     public function createUser()
     {
         $role = Role::all();
@@ -93,7 +93,7 @@ class adminController extends Controller
         $user->delete();
         return redirect()->route('showUsers')->with('success', 'User deleted successfully');
     }
-
+    // Profile Function
     public function showProfiles()
     {
         $profiles = Profile::with('owner')->paginate(10);
@@ -192,6 +192,22 @@ class adminController extends Controller
         $profile->delete();
         return redirect()->route('showProfiles')->with('success', 'Profile deleted successfully');
     }
+
+    // Service Functions
+    public function showServices()
+    {
+        $services = Service::all();
+        return view('Admin.showServices', ['services' => $services]);
+    }
+    public function showService(Service $service)
+    {
+        return view('Admin.showService', ['service' => $service]);
+    }
+    public function createService()
+    {
+        $providers = User::role('provider')->get();
+        return view('Admin.createService', ['providers' => $providers]);
+    }
     private function decodeSocials($profile)
     {
         $jsondata = $profile->social_media;
@@ -232,4 +248,6 @@ class adminController extends Controller
         }
         return $jsonString;
     }
+
+
 }

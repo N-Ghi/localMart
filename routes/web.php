@@ -42,4 +42,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], func
     Route::get('/profile/edit/{profile}', [AdminController::class, 'editProfile'])->name('editProfile');
     Route::put('/profile/edit/{profile}', [AdminController::class, 'updateProfile'])->name('updateProfile');
     Route::delete('/profile/delete/{profile}', [AdminController::class, 'destroyProfile'])->name('destroyProfile');
+
+    Route::get('/profile/view', [AdminController::class, 'showServices'])->name('showServices');
+    Route::get('/profile/view/{service}', [AdminController::class, 'showService'])->name('showService');
+    Route::get('/profile/create', [AdminController::class, 'createService'])->name('createService');
+    Route::post('/profile/create', [AdminController::class, 'storeService'])->name('storeService');
 });
