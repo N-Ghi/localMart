@@ -27,7 +27,7 @@ Route::get('/logout', [userController::class, 'logout'])->name('logout')->middle
 
 //Admin Routes
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], function () {
-    
+
     //User Routes
     Route::get('/users/create', [AdminController::class, 'createUser'])->middleware('auth')->name('createUser');
     Route::post('/users/create', [AdminController::class, 'storeUser'])->middleware('auth')->name('storeUser');
@@ -54,5 +54,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'auth']], func
     Route::get('/service/edit/{service}', [AdminController::class, 'editService'])->name('editService');
     Route::put('/service/edit/{service}', [AdminController::class, 'updateService'])->name('updateService');
     Route::delete('/service/delete/{service}', [AdminController::class, 'destroyService'])->name('destroyService');
+
+    //Booking Routes
+    Route::post('/booking/create', [AdminController::class, 'createBooking'])->name('createBooking');
+    Route::get('/booking/view', [AdminController::class, 'showBookings'])->name('showBookings');
+    Route::get('/booking/view/{booking}', [AdminController::class, 'showBooking'])->name('showBooking');
+    Route::get('/booking/edit/{booking}', [AdminController::class, 'editBooking'])->name('editBooking');
+    Route::put('/booking/edit/{booking}', [AdminController::class, 'updateBooking'])->name('updateBooking');
+    Route::delete('/booking/delete/{booking}', [AdminController::class, 'destroyBooking'])->name('destroyBooking');
+
+    //Payment Routes
+    Route::post('/payment/create', [AdminController::class, 'createPayment'])->name('createPayment');
 
 });

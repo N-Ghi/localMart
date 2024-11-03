@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Booking;
+use App\Models\Payment;
 use App\Models\Profile;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class adminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $totalUsers = User::count();
+        $activeGuides = User::role('provider')->count();
+        $totalTours = Booking::count();
+        $totalServices = Service::count();
+        $unpaidBookings = Booking::where('status', 'pending')->count();
+        $paidBookings = Booking::where('status', 'paid')->count();
+
+        return view('Admin.dashboard', compact('totalUsers', 'activeGuides', 'totalTours', 'totalServices', 'unpaidBookings', 'paidBookings'));
     }
-    // User Function
+    // User Functions
     public function createUser()
     {
         $role = Role::all();
@@ -94,7 +105,7 @@ class adminController extends Controller
         $user->delete();
         return redirect()->route('showUsers')->with('success', 'User deleted successfully');
     }
-    // Profile Function
+    // Profile Functions
     public function showProfiles()
     {
         $profiles = Profile::with('owner')->paginate(10);
@@ -268,6 +279,60 @@ class adminController extends Controller
         return redirect()->route('showServices')->with('success', 'Service deleted successfully');
     }
 
+    //Booking Functions
+    public function createBooking(Request $request)
+    {
+        $request->validate([
+            'service_id' => 'required|exists:services,id',
+        ]);
+    
+        $bookingData = [
+            'service_id' => $request->service_id,
+            'booked_by' => Auth::id(),
+            'booked_time' => Carbon::now(),
+            'status' => 'pending',
+        ];
+
+        $booking = Booking::create($bookingData);
+
+        return redirect()->route('showBookings')->with('success', 'Booking created successfully');
+    }
+
+    public function showBookings()
+    {
+        $bookings = Booking::with('service')->paginate(10);
+        return view('Admin.showBookings', ['bookings' => $bookings]);
+    }
+
+    public function destroyBooking($booking)
+    {
+        $booking = Booking::findOrFail($booking);
+        $booking->delete();
+        return redirect()->route('showServices')->with('success', 'Service deleted successfully');
+    }
+
+    //Payment Functions
+    public function createPayment(Request $request)
+    {
+        $request->validate([
+            'booking_id' => 'required|exists:bookings,id',
+        ]);
+
+        $booking = Booking::find($request->booking_id);
+
+        $paymentData = [
+            'booking_id' => $request->booking_id,
+            'price' => $booking->service->price,
+            'payment_time' => Carbon::now(),
+            'status' => 'paid',
+        ];
+        $payment = Payment::create($paymentData);
+
+        $booking->status = 'paid';
+        $booking->save();
+
+        return redirect()->route('showBookings')->with('success', 'Payment created successfully');
+    }
     private function decodeSocials($profile)
     {
         $jsondata = $profile->social_media;

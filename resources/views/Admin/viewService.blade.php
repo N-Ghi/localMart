@@ -28,6 +28,11 @@
                     </span>
                 @endcan
                 <a href="{{ route('showServices') }}" class="btn btn-secondary">Back</a>
+                <form action="{{route('createBooking')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="service_id" value="{{ $service->id }}">
+                    <button type="submit" class="btn btn-primary">Book</button>
+                </form>
             </div>
         </div>
     </div>

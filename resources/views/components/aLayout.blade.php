@@ -11,6 +11,7 @@
     
     <!-- Font Awesome Icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
@@ -37,6 +38,16 @@
                     <div class="d-flex flex-wrap mt-3">
                         <a class="btn btn-sm btn-primary mx-2" href="{{route('createService')}}">Create Service</a>
                         <a class="btn btn-sm btn-primary mx-2" href="{{route('showServices')}}">View Services</a>
+                    </div>
+                </div>
+                <!-- Collapsible Booking Links -->
+                <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#BookingLinks" aria-expanded="false" aria-controls="BookingLinks">
+                    Booking Links
+                </button>
+                
+                <div class="collapse" id="BookingLinks">
+                    <div class="d-flex flex-wrap mt-3">
+                        <a class="btn btn-sm btn-primary mx-2" href="{{route('showBookings')}}">View Bookings</a>
                     </div>
                 </div>
         

@@ -28,6 +28,11 @@ public function run()
         'delete-user',
         'view-user',
 
+        'create-payment',
+        'edit-payment',
+        'delete-payment',
+        'view-payment',
+
     ];
 
     foreach ($permissions as $permission) {
