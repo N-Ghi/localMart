@@ -1,3 +1,3 @@
-<x-pLayout>
+<x-aLayout>
     <h1>Provider Dashboard</h1>
-</x-pLayout>
+</x-aLayout>

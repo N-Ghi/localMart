@@ -38,7 +38,7 @@ class BookingController extends Controller
     public function showBookings()
     {
         $bookings = Booking::with('service')->paginate(10);
-        return view('Admin.showBookings', ['bookings' => $bookings]);
+        return view('showBookings', ['bookings' => $bookings]);
     }
 
     public function destroyBooking($booking)

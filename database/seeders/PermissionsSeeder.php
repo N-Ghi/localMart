@@ -33,6 +33,11 @@ public function run()
         'delete-payment',
         'view-payment',
 
+        'create-profile',
+        'edit-profile',
+        'delete-profile',
+        'view-profile',
+
     ];
 
     foreach ($permissions as $permission) {

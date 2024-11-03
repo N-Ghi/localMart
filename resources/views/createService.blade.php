@@ -42,19 +42,20 @@
                 <div class="text-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
-
-        <div class="form-group mb-4">
-            <label for="owner_id" class="form-label">Select Provider:</label>
-            <select name="owner_id" id="owner_id" class="form-control" required>
-                <option value="">Choose a provider</option>
-                @foreach($providers as $provider)
-                    <option value="{{ $provider->id }}">{{ $provider->id }}. {{ $provider->name }}</option>
-                @endforeach
-            </select>
-            @error('owner_id')
-                <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-        </div>
+        @can('role', 'admin')
+            <div class="form-group mb-4">
+                <label for="owner_id" class="form-label">Select Provider:</label>
+                <select name="owner_id" id="owner_id" class="form-control" required>
+                    <option value="">Choose a provider</option>
+                    @foreach($providers as $provider)
+                        <option value="{{ $provider->id }}">{{ $provider->id }}. {{ $provider->name }}</option>
+                    @endforeach
+                </select>
+                @error('owner_id')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+        @endcan
 
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>

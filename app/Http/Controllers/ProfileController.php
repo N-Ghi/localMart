@@ -28,19 +28,19 @@ class ProfileController extends Controller
     public function showProfiles()
     {
         $profiles = Profile::with('owner')->paginate(10);
-        return view('Admin.showProfiles', ['profiles' => $profiles]);
+        return view('showProfiles', ['profiles' => $profiles]);
     }
 
     public function showProfile(Profile $profile)
     {
         $output = $this->sanitizeController->decodeSocials($profile); // Call the method
-        return view('Admin.showProfile', ['profile' => $profile, 'output' => $output]);
+        return view('showProfile', ['profile' => $profile, 'output' => $output]);
     }
 
     public function createProfile()
     {
         $providers = User::role('provider')->get();
-        return view('Admin.storeProfile', compact('providers'));
+        return view('storeProfile', compact('providers'));
     }
 
     public function storeProfile(Request $request)
@@ -78,7 +78,7 @@ class ProfileController extends Controller
     public function editProfile(Profile $profile)
     {
         $providers = User::role('provider')->get();
-        return view('Admin.editProfile', compact('profile', 'providers'));
+        return view('editProfile', compact('profile', 'providers'));
     }
 
     public function updateProfile(Profile $profile, Request $request)

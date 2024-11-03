@@ -20,17 +20,17 @@ class ServiceController extends Controller
     public function showServices()
     {
         $services = Service::all();
-        return view('Admin.viewServices', ['services' => $services]);
+        return view('viewServices', ['services' => $services]);
     }
     public function showService(Service $service)
     {
 
-        return view('Admin.viewService', ['service' => $service]);
+        return view('viewService', ['service' => $service]);
     }
     public function createService()
     {
         $providers = User::role('provider')->get();
-        return view('Admin.createService', ['providers' => $providers]);
+        return view('createService', ['providers' => $providers]);
     }
     public function storeService(Request $request)
     {
@@ -58,7 +58,7 @@ class ServiceController extends Controller
     public function editService(Service $service)
     {
         $providers = User::role('provider')->get();
-        return view('Admin.editService', ['service' => $service, 'providers' => $providers]);
+        return view('editService', ['service' => $service, 'providers' => $providers]);
     }
     public function updateService(Service $service, Request $request)
     {
