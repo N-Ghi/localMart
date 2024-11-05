@@ -17,7 +17,7 @@ class RolesSeeder extends Seeder
 
             'provider' => ['view-service', 'create-service', 'edit-service', 'delete-service', 'view-booking', 'delete-booking', 'edit-booking', 'view-payment', 'edit-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
 
-            'traveller' => ['view-booking', 'create-booking', 'edit-booking', 'delete-booking', 'view-service', 'view-payment', 'create-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
+            'traveller' => ['view-booking', 'create-booking', 'edit-booking', 'delete-booking', 'view-service', 'view-payment', 'create-payment', 'edit-payment', 'delete-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
         ];
 
         foreach ($roles as $roleName => $permissions) {

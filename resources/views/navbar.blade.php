@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     @elseif (auth()->user()->hasRole('provider'))
-                        <a href="{{ route('travellerDashboard') }}" class="text-white">{{ config('app.name') }}</a>
+                        <a href="{{ route('providorDashboard') }}" class="text-white">{{ config('app.name') }}</a>
                         <!-- Collapsible Service Links -->
                         <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#serviceLinks" aria-expanded="false" aria-controls="serviceLinks">
                             Service Links
@@ -66,7 +66,7 @@
                         </button>
                         <div class="collapse" id="BookingLinks">
                             <div class="d-flex flex-wrap mt-3">
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showBookings') }}">View Bookings</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showMyBookings', auth()->user()->id) }}">View Bookings</a>
                             </div>
                         </div>
 
@@ -77,12 +77,12 @@
                         <div class="collapse" id="profileLinks">
                             <div class="d-flex flex-wrap mt-3">
                                 <a class="btn btn-sm btn-primary mx-2" href="{{ route('createProfile') }}">Create Profile</a>
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showProfiles') }}">View Profiles</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showMyProfiles') }}">View My Profiles</a>
                             </div>
                         </div>
 
                     @elseif (auth()->user()->hasRole('traveller'))
-                        <a href="{{ route('providorDashboard') }}" class="text-white">{{ config('app.name') }}</a>
+                        <a href="{{ route('travellerDashboard') }}" class="text-white">{{ config('app.name') }}</a>
 
                         <!-- Collapsible Booking Links -->
                         <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#BookingLinks" aria-expanded="false" aria-controls="BookingLinks">

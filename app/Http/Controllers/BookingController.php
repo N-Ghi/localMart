@@ -47,4 +47,23 @@ class BookingController extends Controller
         $booking->delete();
         return redirect()->route('showServices')->with('success', 'Service deleted successfully');
     }
+
+    public function showMyBookings()
+    {
+        // Get the currently authenticated user
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please log in to view your bookings.');
+        }
+
+        // Assuming 'owns' returns a collection of services
+        $serviceIds = $user->owns()->pluck('id'); // Get an array of service IDs
+
+        // Retrieve bookings for all services owned by the user
+        $bookings = Booking::whereIn('service_id', $serviceIds)->paginate(10);
+
+        return view('viewMyBookings', ['bookings' => $bookings]);
+    }
 }

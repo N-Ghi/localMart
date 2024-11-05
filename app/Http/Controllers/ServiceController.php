@@ -42,6 +42,15 @@ class ServiceController extends Controller
             'finish_time' => 'required|date_format:H:i',
             'owner_id' => 'required|exists:users,id',
         ]);
+        // 'owner_id' => 'required|exists:users,id',
+
+        if (auth()->user()->hasRole('provider')) {
+            $validatedData['owner_id'] = auth()->user()->id;
+        } elseif(auth()->user()->hasRole('admin')) {
+            $validatedData['owner_id'] = $request->input('owner_id');
+        } else {
+            return redirect()->back()->withErrors(['owner_id' => 'You must be a provider or admin to create a service']);
+        }
 
         if (strtotime($validatedData['finish_time']) <= strtotime($validatedData['start_time'])) {
             return redirect()->back()->withErrors(['finish_time' => 'Finish time must be after start time']);

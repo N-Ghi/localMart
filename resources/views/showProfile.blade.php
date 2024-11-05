@@ -72,7 +72,16 @@
                         </form>
                     </span>
                 @endcan
-                <a href="{{ route('showProfiles') }}" class="btn btn-secondary">Back</a>
+                @role('admin')
+                    <span>
+                        <a href="{{ route('showProfiles') }}" class="btn btn-secondary">Back</a>
+                    </span>
+                @endrole
+                @role('provider')
+                    <span>
+                        <a href="{{ route('showMyProfiles') }}" class="btn btn-secondary">Back</a>
+                    </span>
+                @endrole
             </div>
         </div>
 

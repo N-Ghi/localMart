@@ -5,18 +5,20 @@
         @if($profiles->isEmpty())
             <p>No profiles found.</p>
         @else
-            @foreach ($profiles as $profile)
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h2 class="h5 mb-0">{{ optional($profile->owner)->name }} - {{ $profile->business_type }}</h2>
+            @role('admin')
+                @foreach ($profiles as $profile)
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h2 class="h5 mb-0">{{ optional($profile->owner)->name }} - {{ $profile->business_type }}</h2>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>ID:</strong> {{$profile->id}}</p>
+                            <p><a href="{{route('showProfile', $id=$profile->id)}}" class="btn btn-info btn-sm">See all</a></p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p><strong>ID:</strong> {{$profile->id}}</p>
-                        <p><a href="{{route('showProfile', $id=$profile->id)}}" class="btn btn-info btn-sm">See all</a></p>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
             {{ $profiles->links() }}
+            @endrole
         @endif
     </div>
 </x-aLayout>

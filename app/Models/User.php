@@ -57,7 +57,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Service::class, 'owner_id');
     }
-    
-
 
 }

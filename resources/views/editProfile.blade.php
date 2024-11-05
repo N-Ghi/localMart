@@ -69,20 +69,26 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="owner_id">Select Provider:</label>
-                <select name="owner_id" id="owner_id" class="form-control" required>
-                    <option value="">Choose a provider</option>
-                    @foreach($providers as $provider)
-                        <option value="{{ $provider->id }}" {{ old('owner_id', $profile->owner_id) == $provider->id ? 'selected' : '' }}>
-                            {{ $provider->id }}.{{ $provider->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('owner_id')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+            @role('admin')
+                <div class="form-group">
+                    <label for="owner_id">Select Provider:</label>
+                    <select name="owner_id" id="owner_id" class="form-control" required>
+                        <option value="">Choose a provider</option>
+                        @foreach($providers as $provider)
+                            <option value="{{ $provider->id }}" {{ old('owner_id', $profile->owner_id) == $provider->id ? 'selected' : '' }}>
+                                {{ $provider->id }}.{{ $provider->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('owner_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            @endrole
+
+            @if(auth()->user()->hasRole('provider'))
+                <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
+            @endif
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

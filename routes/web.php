@@ -11,9 +11,10 @@ use App\Http\Controllers\providerController;
 use App\Http\Controllers\travellerController;
 
 Route::get('/', [userController::class, 'index']);
-Route::get('/authget', [userController::class, function(){
-    return auth()->user()->role;
-}]);
+
+// Route::get('/authget', [userController::class, function(){
+//     return auth()->user()->role;
+// }]);
 
 
 // Register Routes
@@ -46,6 +47,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     
+    Route::get('/profile/view', [ProfileController::class, 'showMyProfiles'])->name('showMyProfiles')->middleware('permission:view-profile');
+
+    Route::get('/booking/view/{user}', [BookingController::class, 'showMyBookings'])->name('showMyBookings')->middleware('permission:view-profile');
+
+
     // Dashboard Routes
     Route::get('/provider/dashboard', [providerController::class, 'index'])->name('providorDashboard');
     Route::get('/traveller/dashboard', [travellerController::class, 'index'])->name('travellerDashboard');
@@ -83,4 +89,3 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
-

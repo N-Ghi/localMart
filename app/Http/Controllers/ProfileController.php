@@ -36,6 +36,13 @@ class ProfileController extends Controller
         $output = $this->sanitizeController->decodeSocials($profile); // Call the method
         return view('showProfile', ['profile' => $profile, 'output' => $output]);
     }
+    public function showMyProfiles()
+    {
+        // Eager load the owner relationship to avoid N+1 issues
+        $myProfile = Profile::with('owner')->where('owner_id', auth()->user()->id)->get();
+
+        return view('viewMyProfile', ['myProfile' => $myProfile]);
+    }
 
     public function createProfile()
     {
@@ -57,6 +64,12 @@ class ProfileController extends Controller
             'owner_id' => 'required|exists:users,id',
         ]);
 
+        if(auth()->user()->hasRole('admin')){
+            $validatedData['owner_id'] = $request->owner_id;
+        } elseif(auth()->user()->hasRole('provider')) {
+            $validatedData['owner_id'] = auth()->user()->id;
+        }
+
         // Sanitize input directly using SanitizeController
         foreach ($validatedData as $key => $value) {
             $validatedData[$key] = strip_tags($value);
@@ -71,8 +84,16 @@ class ProfileController extends Controller
 
         $profile = Profile::create($validatedData);
 
-        // Redirect with a success message
-        return redirect()->route('showProfiles')->with('success', 'Profile created successfully!');
+        
+        if(auth()->user()->hasRole('admin')){
+            return redirect()->route('showProfiles')->with('success', 'Profile created successfully!');
+        } 
+        elseif(auth()->user()->hasRole('provider')) {
+            $myProfile = Profile::where('owner_id', auth()->user()->id)->get();
+    
+            return view('viewMyProfile', ['myProfile' => $myProfile])->with('success', 'Profile created successfully!');
+        } 
+        
     }
 
     public function editProfile(Profile $profile)
@@ -95,6 +116,12 @@ class ProfileController extends Controller
             'owner_id' => 'required|exists:users,id',
         ]);
 
+        if(auth()->user()->hasRole('admin')){
+            $validatedData['owner_id'] = $request->owner_id;
+        } elseif(auth()->user()->hasRole('provider')) {
+            $validatedData['owner_id'] = auth()->user()->id;
+        }
+
         // Sanitize input directly using SanitizeController
         foreach ($validatedData as $key => $value) {
             $validatedData[$key] = strip_tags($value);
@@ -108,13 +135,27 @@ class ProfileController extends Controller
 
         $profile->update($validatedData);
 
-        return redirect()->route('showProfiles')->with('success', 'Profile updated successfully');
+        if(auth()->user()->hasRole('admin')){
+            return redirect()->route('showProfiles')->with('success', 'Profile deleted successfully');
+        }
+        elseif(auth()->user()->hasRole('provider')) {
+            $myProfile = Profile::where('owner_id', auth()->user()->id)->get();
+    
+            return view('viewMyProfile', ['myProfile' => $myProfile])->with('success', 'Profile deleted successfully!');
+        }
     }
 
     public function destroyProfile($profileId)
     {
         $profile = Profile::findOrFail($profileId);
         $profile->delete();
-        return redirect()->route('showProfiles')->with('success', 'Profile deleted successfully');
+        if(auth()->user()->hasRole('admin')){
+            return redirect()->route('showProfiles')->with('success', 'Profile deleted successfully');
+        }
+        elseif(auth()->user()->hasRole('provider')) {
+            $myProfile = Profile::where('owner_id', auth()->user()->id)->get();
+    
+            return view('viewMyProfile', ['myProfile' => $myProfile])->with('success', 'Profile deleted successfully!');
+        }
     }
 }

@@ -44,20 +44,22 @@
             @enderror
         </div>
 
-        <div class="form-group mb-4">
-            <label for="owner_id" class="form-label">Select Provider:</label>
-            <select name="owner_id" id="owner_id" class="form-control" required aria-describedby="ownerError">
-                <option value="">Choose a provider</option>
-                @foreach($providers as $provider)
-                    <option value="{{ $provider->id }}" {{ old('owner_id', $service->owner_id) == $provider->id ? 'selected' : '' }}>
-                        {{ $provider->id }}. {{ $provider->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('owner_id')
-                <div id="ownerError" class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-        </div>
+        @role('admin')
+            <div class="form-group mb-4">
+                <label for="owner_id" class="form-label">Select Provider:</label>
+                <select name="owner_id" id="owner_id" class="form-control" required aria-describedby="ownerError">
+                    <option value="">Choose a provider</option>
+                    @foreach($providers as $provider)
+                        <option value="{{ $provider->id }}" {{ old('owner_id', $service->owner_id) == $provider->id ? 'selected' : '' }}>
+                            {{ $provider->id }}. {{ $provider->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('owner_id')
+                    <div id="ownerError" class="text-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+        @endrole
 
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
