@@ -19,7 +19,14 @@ class ServiceController extends Controller
     // Service Functions
     public function showServices()
     {
-        $services = Service::all();
+        if (auth()->user()->hasRole('provider')) {
+            $services = Service::where('owner_id', auth()->user()->id)->get();
+            return view('viewServices', ['services' => $services]);
+        }
+        elseif (auth()->user()->hasRole('admin')) {
+            $services = Service::all();
+            return view('viewServices', ['services' => $services]);
+        }
         return view('viewServices', ['services' => $services]);
     }
     public function showService(Service $service)
@@ -42,7 +49,6 @@ class ServiceController extends Controller
             'finish_time' => 'required|date_format:H:i',
             'owner_id' => 'required|exists:users,id',
         ]);
-        // 'owner_id' => 'required|exists:users,id',
 
         if (auth()->user()->hasRole('provider')) {
             $validatedData['owner_id'] = auth()->user()->id;

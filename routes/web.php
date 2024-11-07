@@ -42,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/edit/{user}', [AdminController::class, 'editUser'])->name('editUser');
         Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
         Route::get('/profile/view', [ProfileController::class, 'showProfiles'])->name('showProfiles');
-        Route::get('/service/view', [ServiceController::class, 'showServices'])->name('showServices');
         Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings');
     });
 
-    
+    Route::get('/service/view', [ServiceController::class, 'showServices'])->name('showServices');
+
     Route::get('/profile/view', [ProfileController::class, 'showMyProfiles'])->name('showMyProfiles')->middleware('permission:view-profile');
 
-    Route::get('/booking/view/{user}', [BookingController::class, 'showMyBookings'])->name('showMyBookings')->middleware('permission:view-profile');
+    Route::get('/booking/view/{profile}', [BookingController::class, 'showMyBookings'])->name('showMyBookings')->middleware('permission:view-profile');
 
 
     // Dashboard Routes

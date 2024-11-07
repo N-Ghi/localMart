@@ -60,16 +60,6 @@
                             </div>
                         </div>
 
-                        <!-- Collapsible Booking Links -->
-                        <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#BookingLinks" aria-expanded="false" aria-controls="BookingLinks">
-                            Booking Links
-                        </button>
-                        <div class="collapse" id="BookingLinks">
-                            <div class="d-flex flex-wrap mt-3">
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showMyBookings', auth()->user()->id) }}">View Bookings</a>
-                            </div>
-                        </div>
-
                         <!-- Collapsible Profile Links -->
                         <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#profileLinks" aria-expanded="false" aria-controls="profileLinks">
                             Profile Links

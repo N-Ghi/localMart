@@ -64,6 +64,6 @@ class BookingController extends Controller
         // Retrieve bookings for all services owned by the user
         $bookings = Booking::whereIn('service_id', $serviceIds)->paginate(10);
 
-        return view('viewMyBookings', ['bookings' => $bookings]);
+        return view('viewAllBookings', ['bookings' => $bookings]);
     }
 }

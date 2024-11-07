@@ -56,7 +56,7 @@
                 @enderror
             </div>
         @endrole
-
+        <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
 </x-aLayout>

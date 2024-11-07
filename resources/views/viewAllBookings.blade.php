@@ -1,5 +1,5 @@
 <x-aLayout>
-    <h1 class="text-center mb-4">View My Bookings</h1>
+    <h1 class="text-center mb-4">View All Bookings</h1>
     <div class="container d-flex justify-content-center">
         <div class="card mb-4 shadow" style="width: 100%; max-width: 600px;">
             @foreach ($bookings as $booking)

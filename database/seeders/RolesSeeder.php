@@ -15,7 +15,7 @@ class RolesSeeder extends Seeder
         $roles = [
             'admin' => ['create-service', 'edit-service', 'delete-service', 'view-service', 'create-booking', 'edit-booking', 'delete-booking', 'view-booking', 'create-user', 'edit-user', 'delete-user', 'view-user', 'create-payment', 'edit-payment', 'delete-payment', 'view-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
 
-            'provider' => ['view-service', 'create-service', 'edit-service', 'delete-service', 'view-booking', 'delete-booking', 'edit-booking', 'view-payment', 'edit-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
+            'provider' => ['view-service', 'create-service', 'edit-service', 'delete-service', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
 
             'traveller' => ['view-booking', 'create-booking', 'edit-booking', 'delete-booking', 'view-service', 'view-payment', 'create-payment', 'edit-payment', 'delete-payment', 'create-profile', 'edit-profile', 'delete-profile', 'view-profile'],
         ];
