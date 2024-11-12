@@ -27,7 +27,10 @@ class ServiceController extends Controller
             $services = Service::all();
             return view('viewServices', ['services' => $services]);
         }
-        return view('viewServices', ['services' => $services]);
+        elseif (auth()->user()->hasRole('traveller')) {
+            $services = Service::all();
+            return view('viewServices', ['services' => $services]);
+        }
     }
     public function showService(Service $service)
     {

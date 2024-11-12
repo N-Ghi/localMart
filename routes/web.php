@@ -42,8 +42,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/edit/{user}', [AdminController::class, 'editUser'])->name('editUser');
         Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
         Route::get('/profile/view', [ProfileController::class, 'showProfiles'])->name('showProfiles');
-        Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings');
     });
+        Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings')->middleware('permission:view-booking');
 
     Route::get('/service/view', [ServiceController::class, 'showServices'])->name('showServices');
 

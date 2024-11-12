@@ -37,7 +37,12 @@ class BookingController extends Controller
 
     public function showBookings()
     {
-        $bookings = Booking::with('service')->paginate(10);
+        if (auth()->user()->hasRole('admin')){
+            $bookings = Booking::with('service')->paginate(10);
+        }
+        elseif (auth()->user()->hasRole('traveller')){
+            $bookings = Booking::where('booked_by', auth()->user()->id)->get();
+        }
         return view('showBookings', ['bookings' => $bookings]);
     }
 

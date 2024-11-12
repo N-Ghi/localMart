@@ -76,28 +76,26 @@
 
                         <!-- Collapsible Booking Links -->
                         <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#BookingLinks" aria-expanded="false" aria-controls="BookingLinks">
-                            Booking Links
+                            Bookings
                         </button>
                         <div class="collapse" id="BookingLinks">
                             <div class="d-flex flex-wrap mt-3">
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showBookings') }}">View Bookings</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showBookings') }}">View My Bookings</a>
                             </div>
                         </div>
 
-                        <!-- Collapsible Profile Links -->
-                        <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#profileLinks" aria-expanded="false" aria-controls="profileLinks">
-                            Profile Links
+                        <!-- Collapsible Service Links -->
+                        <button class="btn btn-info btn-sm mx-2" type="button" data-toggle="collapse" data-target="#serviceLinks" aria-expanded="false" aria-controls="serviceLinks">
+                            Adventures
                         </button>
-                        <div class="collapse" id="profileLinks">
+                        <div class="collapse" id="serviceLinks">
                             <div class="d-flex flex-wrap mt-3">
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('createProfile') }}">Create Profile</a>
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showProfiles') }}">View Profiles</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showServices') }}">View Adventures</a>
                             </div>
                         </div>
-                        @else
+                    @else
                         <p>error</p>
-                    
-                        @endif
+                    @endif
                 @endauth
             </h4>
             <!-- Logout Button -->
