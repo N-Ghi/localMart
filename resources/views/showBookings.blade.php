@@ -15,6 +15,7 @@
                         <p><strong>Time:</strong> {{ \Carbon\Carbon::parse($booking->service->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->service->finish_time)->format('h:i A') }}</p>
                         <p><strong>Date:</strong> {{$booking->service->start_date}} - {{$booking->service->end_date}} </p>
                         <p><strong>Booked At:</strong> {{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y, h:i A') }}</p>
+                        
                     </div>
 
                     <div class="card-footer d-flex justify-content-between">
