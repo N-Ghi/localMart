@@ -15,6 +15,8 @@ class Service extends Model
         'price',
         'start_time',
         'finish_time',
+        'start_date',
+        'end_date',
         'owner_id',
     ];
     public function owned()

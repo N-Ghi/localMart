@@ -44,6 +44,16 @@
             @enderror
         </div>
 
+        <div class="form-group mb-3">
+            <label class="form-label" for="start-date">Start Date</label>
+            <input type="date" class="form-control" name="start_date" id="start-date" required>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label class="form-label" for="end-date">End Date</label>
+            <input type="date" class="form-control" name="end_date" id="end-date" required>
+        </div>
+
         @role('admin')
             <div class="form-group mb-4">
                 <label for="owner_id" class="form-label">Select Provider:</label>
@@ -63,4 +73,13 @@
 
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
+
+    <script>
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+    
+        startDateInput.addEventListener('change', () => {
+            endDateInput.min = startDateInput.value; // Set min end date to selected start date
+        });
+    </script>
 </x-aLayout>

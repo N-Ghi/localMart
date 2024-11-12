@@ -50,6 +50,8 @@ class ServiceController extends Controller
             'price' => 'required|numeric',
             'start_time' => 'required|date_format:H:i',
             'finish_time' => 'required|date_format:H:i',
+            'start_date' =>'required|date',
+            'end_date' => 'required|date',
             'owner_id' => 'required|exists:users,id',
         ]);
 
@@ -63,6 +65,9 @@ class ServiceController extends Controller
 
         if (strtotime($validatedData['finish_time']) <= strtotime($validatedData['start_time'])) {
             return redirect()->back()->withErrors(['finish_time' => 'Finish time must be after start time']);
+        }
+        if (strtotime($validatedData['end_date']) <= strtotime($validatedData['start_date'])) {
+            return redirect()->back()->withErrors(['end_date' => 'End date must be after start date']);
         }
 
         $validatedData['name'] = strip_tags($validatedData['name']);
@@ -86,11 +91,16 @@ class ServiceController extends Controller
             'price' => 'required|numeric',
             'start_time' => 'required|date_format:H:i',
             'finish_time' => 'required|date_format:H:i',
+            'start_date' =>'required|date',
+            'end_date' => 'required|date',
             'owner_id' => 'required|exists:users,id',
         ]);
 
         if (strtotime($validatedData['finish_time']) <= strtotime($validatedData['start_time'])) {
             return redirect()->back()->withErrors(['finish_time' => 'Finish time must be after start time']);
+        }
+        if (strtotime($validatedData['end_date']) <= strtotime($validatedData['start_date'])) {
+            return redirect()->back()->withErrors(['end_date' => 'End date must be after start date']);
         }
 
         $validatedData['name'] = strip_tags($validatedData['name']);

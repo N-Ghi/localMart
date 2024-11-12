@@ -16,7 +16,7 @@
                                 <p class="card-text">{{ $adventure->service->description }}</p>
                             </div>
                             <div class="card-footer text-center bg-light border-top-0">
-                                <a href="{{ route('showAdventure', $adventure->service->id) }}" class="btn btn-info btn-sm">See all</a>
+                                <a href="{{ route('showBooking', $adventure->service->id) }}" class="btn btn-info btn-sm">See all</a>
                             </div>
                         </div>
                     </div>

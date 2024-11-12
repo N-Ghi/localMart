@@ -41,6 +41,22 @@
                 <div id="finishTimeError" class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label" for="start-date">Start Date</label>
+            <input type="date" class="form-control" name="start_date" id="start_date" required>
+            @error('start_date')
+                <div id="startDateError" class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group mb-3">
+            <label class="form-label" for="end-date">End Date</label>
+            <input type="date" class="form-control" name="end_date" id="end_date" required>
+            @error('end_date')
+                <div id="endDateError" class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
         
         @role('admin')
             <div class="form-group mb-4">
@@ -59,4 +75,12 @@
         <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
+    <script>
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+    
+        startDateInput.addEventListener('change', () => {
+            endDateInput.min = startDateInput.value; // Set min end date to selected start date
+        });
+    </script>
 </x-aLayout>

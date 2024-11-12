@@ -9,8 +9,8 @@
                 <p><strong>Name:</strong> {{ $service->name }}</p>
                 <p><strong>Description:</strong> {{ $service->description }}</p>
                 <p><strong>Price:</strong> {{ $service->price }} Rwf</p>
-                <p><strong>Start Time:</strong> {{ $service->start_time }}</p>
-                <p><strong>Finish Time:</strong> {{ $service->finish_time }}</p>
+                <p><strong>Time:</strong> {{ $service->start_time }} - {{ $service->finish_time }}</p>
+                <p><strong>Date:</strong> {{ $service->start_date }} - {{ $service->end_date }}</p>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center bg-light p-3">
                 @can('edit-service')
