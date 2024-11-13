@@ -1,27 +1,36 @@
 <x-aLayout>
-    <h3>Upcomming Adventures</h3>
     <div class="card-body">
         <div class="row">
-            @if($adventures->isEmpty())
-                <p>No upcoming bookings found.</p>
-            @else
-                @foreach($adventures as $adventure)
-                    <div class="col-md-6 mb-4"> <!-- Two cards per row on medium and larger screens -->
-                        <div class="card h-100 shadow-lg border-0">
-                            <div class="card-header bg-primary text-white text-center">
-                                <h5 class="card-title
-                                mb-0">{{ $adventure->service->name }}</h5>
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-3">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">Upcoming Adventures</div>
+                                <div class="h3 mb-0 font-weight-bold text-gray-800">{{ $adventures }}</div>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text">{{ $adventure->service->description }}</p>
-                            </div>
-                            <div class="card-footer text-center bg-light border-top-0">
-                                <a href="{{ route('showBooking', $adventure->service->id) }}" class="btn btn-info btn-sm">See all</a>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-3x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            @endif
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-3">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">Past Adventures</div>
+                                <div class="h3 mb-0 font-weight-bold text-gray-800">{{ $pastAdventures }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-3x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <hr>

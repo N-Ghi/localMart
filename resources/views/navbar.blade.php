@@ -80,7 +80,9 @@
                         </button>
                         <div class="collapse" id="BookingLinks">
                             <div class="d-flex flex-wrap mt-3">
-                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showBookings') }}">View My Bookings</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('showBookings') }}">Booked Adventures</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('futureAdventures') }}">Upcoming Adventures</a>
+                                <a class="btn btn-sm btn-primary mx-2" href="{{ route('pastAdventures') }}">Past Adventures</a>
                             </div>
                         </div>
 

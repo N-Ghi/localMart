@@ -1,8 +1,7 @@
 <x-aLayout>
-    <h1 class="text-center mb-4">View All Bookings</h1>
+    <h1 class="text-center mb-4">Adventure Information</h1>
     <div class="container d-flex justify-content-center">
         <div class="card mb-4 shadow" style="width: 100%; max-width: 600px;">
-            @foreach ($bookings as $booking)
                 <div class="card-header text-center bg-primary text-white">
                     <h5 class="card-title mb-0">{{ $booking->service->name }}</h5>
                 </div>
@@ -11,8 +10,8 @@
                     <p><strong>Provider:</strong> {{ $booking->service->owned->name }}</p>
                     <p><strong>Price:</strong> {{ $booking->service->price }} Rwf</p>
                     <p><strong>Status:</strong> {{ $booking->status }}</p>
-                    <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($booking->service->start_time)->format('h:i A') }}</p>
-                    <p><strong>Finish Time:</strong> {{ \Carbon\Carbon::parse($booking->service->finish_time)->format('h:i A') }}</p>
+                    <p><strong>Time:</strong> {{ \Carbon\Carbon::parse($booking->service->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->service->finish_time)->format('h:i A') }}</p>
+                    <p><strong>Date:</strong> {{ \Carbon\carbon::parse($booking->service->start_date)->format('d M Y')}} - {{\Carbon\carbon::parse($booking->service->end_date)->format('d M Y')}} </p>
                     <p><strong>Booked At:</strong> {{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y, h:i A') }}</p>
                 </div>
 
@@ -33,7 +32,6 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
-            @endforeach
         </div>
     </div>
 </x-aLayout>

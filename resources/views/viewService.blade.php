@@ -9,8 +9,12 @@
                 <p><strong>Name:</strong> {{ $service->name }}</p>
                 <p><strong>Description:</strong> {{ $service->description }}</p>
                 <p><strong>Price:</strong> {{ $service->price }} Rwf</p>
-                <p><strong>Time:</strong> {{ $service->start_time }} - {{ $service->finish_time }}</p>
-                <p><strong>Date:</strong> {{ $service->start_date }} - {{ $service->end_date }}</p>
+                <p><strong>Time:</strong> {{ \Carbon\Carbon::parse($service->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($service->finish_time)->format('h:i A') }}</p>
+                <p><strong>Date:</strong> {{ \Carbon\carbon::parse($service->start_date)->format('d M Y')}} - {{\Carbon\carbon::parse($service->end_date)->format('d M Y')}} </p>
+
+                @can('create-service')
+                    <p><strong>Created At:</strong> {{ \Carbon\Carbon::parse($service->created_at)->format('d M Y, h:i A') }}</p>
+                @endcan
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center bg-light p-3">
                 @can('edit-service')

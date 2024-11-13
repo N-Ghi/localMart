@@ -43,13 +43,11 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
         Route::get('/profile/view', [ProfileController::class, 'showProfiles'])->name('showProfiles');
     });
-        Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings')->middleware('permission:view-booking');
+    Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings')->middleware('permission:view-booking');
 
     Route::get('/service/view', [ServiceController::class, 'showServices'])->name('showServices');
 
     Route::get('/profile/view', [ProfileController::class, 'showMyProfiles'])->name('showMyProfiles')->middleware('permission:view-profile');
-
-    Route::get('/booking/view/{profile}', [BookingController::class, 'showMyBookings'])->name('showMyBookings')->middleware('permission:view-profile');
 
 
     // Dashboard Routes
@@ -79,10 +77,12 @@ Route::middleware(['auth'])->group(function () {
 
     //Booking Routes
     Route::post('/booking/create', [BookingController::class, 'createBooking'])->name('createBooking')->middleware('permission:create-booking');
-    Route::get('/booking/view/{booking}', [BookingController::class, 'showBooking'])->name('showBooking')->middleware('permission:view-booking');
+    Route::get('/booking/view/{booking}', [BookingController::class, 'showMyBooking'])->name('showMyBooking')->middleware('permission:view-booking');
     Route::get('/booking/edit/{booking}', [BookingController::class, 'editBooking'])->name('editBooking')->middleware('permission:view-booking');
     Route::put('/booking/edit/{booking}', [BookingController::class, 'updateBooking'])->name('updateBooking')->middleware('permission:edit-booking');
     Route::delete('/booking/delete/{booking}', [BookingController::class, 'destroyBooking'])->name('destroyBooking')->middleware('permission:delete-booking');
+    Route::get('/booking/upcoming', [travellerController::class, 'futureAdventures'])->name('futureAdventures');
+    Route::get('/booking/past', [travellerController::class, 'pastAdventures'])->name('pastAdventures');
 
     //Payment Routes
     Route::post('/payment/create', [PaymentController::class, 'createPayment'])->name('createPayment')->middleware('permission:create-payment');
