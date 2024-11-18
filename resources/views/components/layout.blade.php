@@ -20,11 +20,17 @@
     <style>
         body {
             font-family: 'Source Sans Pro', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header, footer {
             background-color: #343a40;
             color: white;
             padding: 1rem;
+        }
+        footer{
+            margin-top:auto;
         }
         h1, h2 {
             color: #007bff;

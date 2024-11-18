@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\GoogleService;
 use Illuminate\Validation\Rule;
 
 class userController extends Controller
@@ -23,7 +24,7 @@ class userController extends Controller
         return view('Providor.register');
     }
 
-    public function storeProvider(Request $request)
+    public function storeProvider(Request $request, GoogleController $googleController)
     {
         $incoming = $request->validate([
             'name'=> ['required', 'min:3', 'max:20'],
@@ -34,7 +35,10 @@ class userController extends Controller
 
         $user = User::create($incoming);
         $user->assignRole('provider');
-        return redirect('/')->with('success', 'Your business has been registered, please login to continue');
+        
+        $googleController->sendConfirmationEmail($user->email);
+
+        return redirect('/')->with('success', 'Your business has been registered, please confirm your email to continue');
     }
     public function storeTraveller(Request $request)
     {
@@ -68,7 +72,7 @@ class userController extends Controller
                 return redirect()->route('travellerDashboard')->with('success', 'Login Success');
             }
             else{
-                return redirect()->route('dashboard')->with('error', 'An error occured, please try again');
+                return redirect()->route('dashboard')->with('error', 'An error occurred, please try again');
             }
         }
         else{

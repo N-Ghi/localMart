@@ -1,8 +1,10 @@
 <?php
 
+use App\Services\GoogleService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -12,16 +14,16 @@ use App\Http\Controllers\travellerController;
 
 Route::get('/', [userController::class, 'index']);
 
-// Route::get('/authget', [userController::class, function(){
-//     return auth()->user()->role;
-// }]);
-
-
 // Register Routes
 Route::get('/register/traveller', [userController::class, 'traveller'])->name('registerTraveller');
 Route::get('/register/provider', [userController::class, 'provider'])->name('registerProvider');
 Route::post('/register/provider', [userController::class, 'storeProvider'])->name('storeProvider');
 Route::post('/register/traveller', [userController::class, 'storeTraveller'])->name('storeTraveller');
+
+Route::get('authUrl', [GoogleService::class, 'initiateOAuthFlow']);
+
+//Confirm Email
+Route::get('/confirm/{token}',[GoogleController::class, 'confirmEmail'])->name('confirmEmail');
 
 // Login Route
 Route::post('/login/{id}', [userController::class, 'login'])->name('login');
