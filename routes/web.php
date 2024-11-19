@@ -1,6 +1,5 @@
 <?php
 
-use App\Services\GoogleService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
@@ -20,7 +19,6 @@ Route::get('/register/provider', [userController::class, 'provider'])->name('reg
 Route::post('/register/provider', [userController::class, 'storeProvider'])->name('storeProvider');
 Route::post('/register/traveller', [userController::class, 'storeTraveller'])->name('storeTraveller');
 
-Route::get('authUrl', [GoogleService::class, 'initiateOAuthFlow']);
 
 //Confirm Email
 Route::get('/confirm/{token}',[GoogleController::class, 'confirmEmail'])->name('confirmEmail');

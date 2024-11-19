@@ -1,17 +1,24 @@
 <x-aLayout>
     @role('provider')
-        @foreach ($myProfile as $profile)
-            <div class="card mb-3 shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="h5 mb-0">{{ $profile->owner->name }} - {{ $profile->business_type }}</h2>
-                </div>
-                <div class="card-body">
-                    <p><strong>ID:</strong> {{$profile->id}}</p>
-                    <p><a href="{{route('showProfile', $id=$profile->id)}}" class="btn btn-info btn-sm">See all</a></p>
-                </div>
+        <div class="container">
+            <h2 class="text-center my-4">View My Profiles</h2>
+            <div class="row">
+                @foreach ($myProfile as $profile)
+                    <div class="col-md-6 mb-4"> <!-- 2 per row -->
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header">
+                                <h2 class="h5 mb-0">{{ $profile->owner->name }} - {{ $profile->business_type }}</h2>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>ID:</strong> {{$profile->id}}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="{{route('showProfile', $id=$profile->id)}}" class="btn btn-info btn-sm">See all</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     @endrole
 </x-aLayout>
-
-

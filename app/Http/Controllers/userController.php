@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Services\GoogleService;
 use Illuminate\Validation\Rule;
 
 class userController extends Controller
@@ -24,7 +23,7 @@ class userController extends Controller
         return view('Providor.register');
     }
 
-    public function storeProvider(Request $request, GoogleController $googleController)
+    public function storeProvider(Request $request)
     {
         $incoming = $request->validate([
             'name'=> ['required', 'min:3', 'max:20'],
@@ -35,10 +34,8 @@ class userController extends Controller
 
         $user = User::create($incoming);
         $user->assignRole('provider');
-        
-        $googleController->sendConfirmationEmail($user->email);
 
-        return redirect('/')->with('success', 'Your business has been registered, please confirm your email to continue');
+        return redirect('/')->with('success', 'Your business has been registered, please login to continue');
     }
     public function storeTraveller(Request $request)
     {

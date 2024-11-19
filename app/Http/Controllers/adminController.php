@@ -71,7 +71,6 @@ class adminController extends Controller
 
     public function showUser($user)
     {
-
         $user = User::find($user);
         return view('Admin.viewUser', ['user' => $user]);
     }

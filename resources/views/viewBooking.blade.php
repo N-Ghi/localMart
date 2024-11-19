@@ -1,8 +1,8 @@
 <x-aLayout>
-    <h1 class="text-center mb-4">Adventure Information</h1>
+    <h2 class="text-center my-4">Adventure Information</h2>
     <div class="container d-flex justify-content-center">
         <div class="card mb-4 shadow" style="width: 100%; max-width: 600px;">
-                <div class="card-header text-center bg-primary text-white">
+                <div class="card-header text-center">
                     <h5 class="card-title mb-0">{{ $booking->service->name }}</h5>
                 </div>
                 <div class="card-body">

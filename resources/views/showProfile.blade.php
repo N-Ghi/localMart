@@ -1,42 +1,7 @@
 <x-aLayout>
-    <style>
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .card {
-            background: linear-gradient(135deg, #e0eaff, #f8f9fa);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .card-header {
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-            font-size: 1.25rem;
-            padding: 1rem;
-            font-weight: 700;
-        }
-        .card-body {
-            padding: 1.5rem;
-        }
-        .card-text {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-        .social-links ul {
-            list-style: none;
-            padding: 0;
-        }
-        .social-links ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-    </style>
     <div class="container">
         <div class="card mx-auto mt-5 mb-5" style="max-width: 500px;">
-            <div class="card-header">
+            <div class="card-header  text-center">
                 {{ optional($profile->owner)->name }} - {{ $profile->business_type }}
             </div>
             <div class="card-body">
@@ -52,7 +17,7 @@
                 
                 <div class="social-links">
                     <p class="card-text"><strong>Business Socials:</strong></p>
-                    <ul>
+                    <ul class="list-unstyled">
                         <li>{!! $output !!}</li>
                     </ul>
                 </div>
@@ -84,6 +49,5 @@
                 @endrole
             </div>
         </div>
-
     </div>
 </x-aLayout>

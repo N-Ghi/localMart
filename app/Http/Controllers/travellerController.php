@@ -12,12 +12,11 @@ class travellerController extends Controller
     public function index()
     {
         //Upcoming bookings
-        $adventures = Booking::where('booked_by', auth()->id())
-        ->whereHas('service', function($query) {
-            $query->where('start_date', '>', now());
+        $adventures = Booking::where('booked_by', auth()->user()->id)
+        ->whereHas('service', function ($query) {
+            $query->where('end_date', '>', now());
         })
         ->with('service')
-        ->orderBy('booked_time', 'asc')
         ->count();
 
         $pastAdventures = Booking::where('booked_by', auth()->id())
@@ -31,7 +30,10 @@ class travellerController extends Controller
         // Get the top 2 most booked services
         $services = Booking::select('service_id', \DB::raw('count(*) as occurrences'))
         ->groupBy('service_id')             // Group by service ID to get count per service
-        ->orderBy('occurrences', 'desc')     // Order by number of occurrences
+        ->orderBy('occurrences', 'desc') 
+        ->whereHas('service', function ($query) {
+            $query->where('end_date', '>', now());
+        })
         ->with('service') 
         ->limit(2)                   // Eager load service to get service name
         ->get();
@@ -41,12 +43,12 @@ class travellerController extends Controller
 
     public function futureAdventures(){
         $userId = auth()->id();
-    $adventures = Booking::where('booked_by', $userId)
-        ->whereHas('service', function ($query) {
-            $query->where('end_date', '>', now());
-        })
-        ->with('service')
-        ->paginate(10);
+        $adventures = Booking::where('booked_by', $userId)
+            ->whereHas('service', function ($query) {
+                $query->where('end_date', '>', now());
+            })
+            ->with('service')
+            ->paginate(10);
         
         return view('upcomingAdventures', compact('adventures'));
     }

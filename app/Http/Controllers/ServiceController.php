@@ -20,21 +20,26 @@ class ServiceController extends Controller
     public function showServices()
     {
         if (auth()->user()->hasRole('provider')) {
-            $services = Service::where('owner_id', auth()->user()->id)->get();
+            $services = Service::where('owner_id', auth()->user()->id)
+            ->orderByRaw('end_date > NOW() DESC') // Orders future services first
+            ->orderBy('end_date')                 // Orders by end date within each group
+            ->get();
             return view('viewServices', ['services' => $services]);
         }
         elseif (auth()->user()->hasRole('admin')) {
-            $services = Service::all();
+            $services = Service::orderByRaw('end_date > NOW() DESC')
+            ->orderBy('end_date')
+            ->get();
             return view('viewServices', ['services' => $services]);
         }
         elseif (auth()->user()->hasRole('traveller')) {
-            $services = Service::all();
+            $services = Service::where('end_date', '>', now())
+            ->get();
             return view('viewServices', ['services' => $services]);
         }
     }
     public function showService(Service $service)
     {
-
         return view('viewService', ['service' => $service]);
     }
     public function createService()

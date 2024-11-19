@@ -17,7 +17,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
 
     {{-- CSS Link --}}
-    <link rel="stylesheet" href="{{asset('css/layout.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('css/layout.css')}}"> --}}
+    <style>
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header, footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+        }
+        footer{
+            margin-top:auto;
+        }
+        h1, h2 {
+            color: #007bff;
+        }
+        .btn-primary {
+            margin-top: 10px;
+        }
+        footer a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+    </style>
 </head>
 <body>
     @include('navbar')

@@ -41,13 +41,13 @@
             @foreach($services as $service)
                 <div class="col-md-6 mb-4"> <!-- Two cards per row on medium and larger screens -->
                     <div class="card h-100 shadow-lg border-0">
-                        <div class="card-header bg-primary text-white text-center">
+                        <div class="card-header text-center">
                             <h5 class="card-title mb-0">{{ $service->service->name }}</h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{ $service->service->description }}</p>
                         </div>
-                        <div class="card-footer text-center bg-light border-top-0">
+                        <div class="card-footer text-center">
                             <a href="{{ route('showService', $service->service->id) }}" class="btn btn-info btn-sm">See all</a>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
     .card-header {
         font-weight: 600;
         padding: 1rem;
-        background-color: #007bff;
-        color: #fff;
+        /* background-color: #007bff;
+        color: #fff; */
     }
 
     .card-title {

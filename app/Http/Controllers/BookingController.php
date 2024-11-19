@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     //Booking Functions
-    public function createBooking(Request $request, GoogleService $googleCalendarService)
+    public function createBooking(Request $request)
     {
         $request->validate([
             'service_id' => 'required|exists:services,id',
@@ -36,25 +36,8 @@ class BookingController extends Controller
         $booking = Booking::create($bookingData);
         $service = $booking->service; // Access the related service using the relationship
 
-        // Prepare data for the calendar event
-        $summary = $service->name;
-        $description = $service->description;
-        $startDate = new \DateTime($service->start_date); // Ensure these are DateTime objects if required
-        $endDate = new \DateTime($service->end_date);
-        $attendeesEmails = [auth()->user()->email];
-
-        // Call the createCalendarEvent method on the GoogleCalendarService
-        $googleCalendarService->createCalendarEvent
-        (
-            $summary,
-            $description,
-            $startDate,
-            $endDate,
-            $attendeesEmails,
-            $booking->booked_by
-        );
-
-        return redirect('/')->with('success', 'Your booking has been created and added to the calendar.');
+        
+        return redirect()->route('showBookings')->with('success', 'Adventure booked created successfully');   
     }
 
     public function showBookings()
