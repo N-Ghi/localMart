@@ -1,5 +1,5 @@
 # Use the official PHP FPM image as the base image
-FROM php:8.0-fpm
+FROM php:8.3-fpm
 
 # Install system dependencies and PHP extensions required for Laravel
 RUN apt-get update && apt-get install -y \
