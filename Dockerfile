@@ -32,8 +32,6 @@ RUN composer self-update
 # Install the PHP dependencies with Composer
 RUN composer install --no-dev --optimize-autoloader --prefer-dist
 
-# Generate application key (if not already done in the app)
-RUN php artisan key:generate
 
 # Run migrations and seeders if needed
 RUN php artisan migrate --force --seed
