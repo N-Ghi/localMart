@@ -3,10 +3,14 @@
         <h2 class="text-center my-4">Past Adventures</h2>
         <div class="row">
             @if($adventures->isEmpty())
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="container d-flex justify-content-center align-items-center vh-100">
+                    <div class="card text-center w-50">
                         <div class="card-header">
-                            <p>No past adventures found.</p>
+                            <h5>No Past Adventures Found</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">It seems like all your adventures are still ongoing.</p>
+                            <p class="card-text">Continue to book up adventures, and soon they will start showing up here.</p>
                         </div>
                     </div>
                 </div>

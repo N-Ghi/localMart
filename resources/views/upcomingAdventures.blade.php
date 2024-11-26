@@ -3,10 +3,17 @@
         <h2 class="text-center my-4">Upcoming Adventures</h2>
         <div class="row">
             @if($adventures->isEmpty())
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="container d-flex justify-content-center align-items-center vh-100">
+                    <div class="card text-center w-50">
                         <div class="card-header">
-                            <p>No upcoming adventures found.</p>
+                            <h5>OH NOOO!!!!</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">It seems like you have no ongoing adventures booked.</p>
+                            <p class="card-text">But, put a smile on that frown because we can change that, follow the link below to get your advetures started.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{route('showServices')}}" class="btn btn-info btn-lg">Book Adventure</a>
                         </div>
                     </div>
                 </div>

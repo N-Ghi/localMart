@@ -20,11 +20,10 @@ class travellerController extends Controller
         ->count();
 
         $pastAdventures = Booking::where('booked_by', auth()->id())
-        ->whereHas('service', function($query) {
-            $query->where('start_date', '<', now());
-        })
         ->with('service')
-        ->orderBy('booked_time', 'asc')
+        ->whereHas('service', function($query) {
+            $query->where('end_date', '<', now());
+        })
         ->count();
 
         // Get the top 2 most booked services

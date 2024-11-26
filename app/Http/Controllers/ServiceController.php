@@ -24,19 +24,17 @@ class ServiceController extends Controller
             ->orderByRaw('end_date > NOW() DESC') // Orders future services first
             ->orderBy('end_date')                 // Orders by end date within each group
             ->get();
-            return view('viewServices', ['services' => $services]);
         }
         elseif (auth()->user()->hasRole('admin')) {
             $services = Service::orderByRaw('end_date > NOW() DESC')
             ->orderBy('end_date')
             ->get();
-            return view('viewServices', ['services' => $services]);
         }
         elseif (auth()->user()->hasRole('traveller')) {
             $services = Service::where('end_date', '>', now())
             ->get();
-            return view('viewServices', ['services' => $services]);
         }
+        return view('viewServices', ['services' => $services]);
     }
     public function showService(Service $service)
     {

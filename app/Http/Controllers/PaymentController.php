@@ -36,6 +36,6 @@ class PaymentController extends Controller
         $booking->status = 'paid';
         $booking->save();
 
-        return redirect()->route('showBookings')->with('success', 'Payment created successfully');
+        return redirect()->route('showMyBooking', $payment->booking_id)->with('success', 'Payment created successfully');
     }
 }

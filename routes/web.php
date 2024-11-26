@@ -20,9 +20,6 @@ Route::post('/register/provider', [userController::class, 'storeProvider'])->nam
 Route::post('/register/traveller', [userController::class, 'storeTraveller'])->name('storeTraveller');
 
 
-//Confirm Email
-Route::get('/confirm/{token}',[GoogleController::class, 'confirmEmail'])->name('confirmEmail');
-
 // Login Route
 Route::post('/login/{id}', [userController::class, 'login'])->name('login');
 
@@ -43,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/users/edit/{user}', [AdminController::class, 'updateUser'])->name('updateUser');
         Route::get('/profile/view', [ProfileController::class, 'showProfiles'])->name('showProfiles');
     });
+
+    
     Route::get('/booking/view', [BookingController::class, 'showBookings'])->name('showBookings')->middleware('permission:view-booking');
 
     Route::get('/service/view', [ServiceController::class, 'showServices'])->name('showServices');

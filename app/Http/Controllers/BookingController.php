@@ -37,7 +37,7 @@ class BookingController extends Controller
         $service = $booking->service; // Access the related service using the relationship
 
         
-        return redirect()->route('showBookings')->with('success', 'Adventure booked created successfully');   
+        return redirect()->route('showMyBooking', $booking->id)->with('success', 'Adventure booked created successfully');   
     }
 
     public function showBookings()
@@ -57,10 +57,10 @@ class BookingController extends Controller
         $booking->delete();
 
         if(auth()->user()->hasRole('admin')){
-            return redirect()->route('adminDashboard')->with('success', 'Service deleted successfully');
+            return redirect()->route('showBookings')->with('success', 'Booking deleted successfully');
         }
         elseif(auth()->user()->hasRole('traveller')){
-            return redirect()->route('travellerDashboard')->with('success', 'Service deleted successfully');
+            return redirect()->route('showBookings')->with('success', 'Booking deleted successfully');
         }
         
     }
