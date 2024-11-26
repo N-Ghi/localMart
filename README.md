@@ -10,7 +10,7 @@ LME (Local Experience Marketplace) is a project aimed at **job creation** and **
 To transform Rwanda's tourism sector by empowering locals to be the **guides** of their own culture, providing tourists with meaningful connections, and supporting the growth of local economies.
 
 ### Mission
-- **Job Creation**: Provide employment to local Rwandans who can work as tour guides for tourists.
+- **Job Creation**: Employ local Rwandans who can work as tour guides for tourists.
 - **Cultural Exchange**: Allow tourists to explore Rwanda through the eyes of its citizens, gaining a deeper understanding of its culture, traditions, and landscapes.
 - **Sustainability**: Promote **green tourism** by encouraging responsible, community-driven tourism that benefits both visitors and locals.
 
