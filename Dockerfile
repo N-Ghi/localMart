@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql xml intl
+    && docker-php-ext-install gd pdo pdo_mysql xml intl \
+    && apt-get upgrade -y  # Upgrade all packages to their latest versions
 
 # Set the working directory inside the container
 WORKDIR /var/www
@@ -23,8 +24,14 @@ COPY . .
 # Install Composer (for managing PHP dependencies)
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+# Update Composer to the latest version
+RUN composer self-update
+
 # Install the PHP dependencies with Composer
 RUN composer install --no-dev --optimize-autoloader --prefer-dist
+
+# Update all Composer dependencies to their latest versions
+RUN composer update --no-dev --optimize-autoloader --prefer-dist
 
 # Generate application key (if not already done in the app)
 RUN php artisan key:generate
