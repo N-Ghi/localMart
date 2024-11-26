@@ -10,6 +10,16 @@
             "dest": "/api/index.php"
         }
     ],
+    "builds": [
+        {
+            "src": "api/**/*.php",
+            "use": "@vercel/php",
+            "config": {
+                "includeFiles": ["composer.json", "composer.lock"]
+            }
+        }
+    ],
+    "buildCommand": "./build.sh",
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
@@ -23,14 +33,5 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
-    },
-    "builds": [
-        {
-            "src": "api/**/*.php",
-            "use": "@vercel/php",
-            "config": {
-                "includeFiles": ["composer.json", "composer.lock"]
-            }
-        }
-    ]
+    }
 }
