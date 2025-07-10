@@ -20,6 +20,6 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
-/.credentials.json
-/env
+*/.credentials.json
+*/env
 .vercel
